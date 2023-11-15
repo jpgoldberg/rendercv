@@ -154,7 +154,7 @@ def escape_latex_characters(sentence: str) -> str:
     return sentence
 
 
-def parse_date_string(date_string: str) -> Date | int:
+def parse_date_string(date_string: str) -> Date:
     """Parse a date string in YYYY-MM-DD, YYYY-MM, or YYYY format and return a
     datetime.date object.
 
@@ -172,8 +172,8 @@ def parse_date_string(date_string: str) -> Date | int:
         date = Date.fromisoformat(f"{date_string}-01")
     elif re.match(r"\d{4}", date_string):
         # Then it is in YYYY format
-        # Then keep it as an integer
-        date = int(date_string)
+        # Assign first day of year
+        date = Date.fromisoformat(f"{date_string}-01-01")
     else:
         raise ValueError(
             f'The date string "{date_string}" is not in YYYY-MM-DD, YYYY-MM, or YYYY'
